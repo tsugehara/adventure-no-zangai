@@ -1,0 +1,254 @@
+scene
+ id: ユーザ入力
+ effect: fade
+ time: 1000
+ init
+  bg
+   file: hankagai.jpg
+  add
+   id: 10
+   file: chara1.png
+   x: 80
+   y: 40
+  add
+   id: 11
+   file: chara2.png
+   x: 220
+   y: 40
+
+message
+ キャラ子「やっとあたしの出番がきたぜー。」
+
+message
+ なん子「ここはこの赤い人にがんばってもらいましょう」
+
+message
+ キャラ子「誰が赤い人だ。ジンシュサベツで訴えるぞ。」
+
+message
+ キャラ子「さーユーザ入力行ってみよう！」
+
+buttons
+ はい
+ いいえ
+
+inputWait
+
+deleteButtons
+
+if
+ exp: $select=="はい"
+ yes
+  jump
+   label: user-yes
+
+message
+ キャラ子「まあそう言わんと。」
+
+jump
+ label: user-input
+
+label
+ id: user-yes
+
+message
+ キャラ子「素直でよろしい！」
+
+label
+ id: user-input
+
+message
+ キャラ子「今やってみせたあれが、一番基本的なテキストによる選択肢の表示だね。」
+
+message
+ キャラ子「選択結果はifでこういう風に書く。
+ 要は$selectにクリックされたボタンのテキストが格納されてるってことよ。」
+ if
+  exp: $select=="はい"
+
+message
+ キャラ子「次は・・そうだなぁ、あたしとなん子のどっちが好き？」
+
+message
+ なん子「キャラクターを直接クリックしてくださいね。
+ キーボードの上下左右キーと決定キーでも選択できますよ。」
+
+selectable
+ 10
+ 11
+
+inputWait
+
+if
+ exp: $select=="10"
+ yes
+  jump
+   label: なん子好き
+
+label
+ id: キャラ子好き
+
+message
+ キャラ子「だよなぁ！やっぱ彼女にするならノリいいやつのが疲れないよな！」
+
+jump
+ label: selectable解説
+
+label
+ id: なん子好き
+
+message
+ なん子「あら。キャラ子さんのパートですから、ここくらいキャラ子さんに花を持たせてあげてもよろしいのに。」
+
+message
+ キャラ子「お前結構発言黒いよな」
+
+label
+ id: selectable解説
+
+message
+ キャラ子「今やったのは、直接画面のオブジェクトを選択出来るやり方だ。
+ selectableってのを使う。ifの$selectには、クリックしたやつのidが入ってるぜ」
+
+message
+ なん子「selectableコマンドは、脱出ゲームのように、画面上のものをクリックして進めるタイプでは活躍するでしょう。」
+
+message
+ キャラ子「どっちも入力を待つためにはinputWaitコマンドを使う必要があるから、忘れないようにな！」
+
+message
+ なん子「それから、キーボードでフォーカスが出ますが、このフォーカスの表示を抑制することが出来ます。
+ 脱出ゲームでクリック出来るものがわかってしまっては興醒めですからね。」
+
+message
+ キャラ子「お、お前、せっかくあたしのメインパートなんだからでしゃばるなよな。」
+
+message
+ なん子「あらごめんなさい」
+
+message
+ キャラ子「じゃあ、このとか子を見つけてもらおうかな。
+ フォーカスでは探せないから、マウスとかで探してクリックしてな！」
+
+add
+ id: 12
+ file: chara3.png
+ x: 200
+ y: 80
+ effect: fade
+ time: 200
+
+wait
+ time: 500
+
+hide
+ id: 12
+ effect: fade
+ time: 200
+
+move
+ id: 12
+ x: 20
+ y: 20
+
+resize
+ id: 12
+ width: 32
+ height: 24
+
+show
+ id: 12
+ effect: fade
+ time: 200
+
+message
+ キャラ子「さあ探せるかな？」
+
+selectable
+ 12
+
+changeConfig
+ autoFocus: 0
+
+inputWait
+
+clearSelectable
+
+changeConfig
+ autoFocus: 1
+
+remove
+ id: 12
+ effect: fade
+ time: 200
+
+message
+ キャラ子「お見事。」
+
+message
+ なん子「注意点として、この例のように小さいサイズのキャラクターを使う場合、scaleコマンドを使っては"いけません"。
+ scaleコマンドは表示を小さくしますが、クリック領域が変わらないので、ここでデモしたようなresizeコマンドでリサイズする必要があるのです。」
+
+message
+ なん子「でもアニメーションさせる時は、scaleは中心から拡大・縮小されるのに対して、resizeは左上を中心になってしまうので、二つを上手に使い分けてくださいね。」
+
+message
+ キャラ子「さて、ユーザ入力は今んところこれだけだ。
+ よくある"ユーザが自由に文字列を入力する"とかは今は使えないので、そこんとこよろしくな。」
+
+message
+ キャラ子「ユーザ入力の注意点としては、selectっていう変数の値が一時的なものなので、保存しておきたい場合はvarコマンドでselectの値を移してあげるとかが必要なんだな。」
+ var
+  変数名: $select
+
+message
+ キャラ子「ま、そのくらいだ。後は使っていく内に慣れんだろ。
+ がんばれよ！」
+
+remove
+ id: 11
+ effect: fade
+ time: 500
+
+hide
+ id: 10
+ effect: fade
+ time: 200
+
+move
+ id: 10
+ x: 140
+ y: 40
+
+show
+ id: 10
+ effect: fade
+ time: 200
+
+message
+ なん子「これにて説明を終わります。」
+
+message
+ なん子「このデモで説明しきれないところなどは、詳しくはリファレンスを見てくださいね。」
+
+message
+ なん子「では、良いゲーム製作ライフを。」
+
+hide
+ id: message
+ effect: fade
+ time: 500
+
+buttons
+ 最初から
+ もういいや
+
+inputWait
+
+if
+ exp: $select=="最初から"
+ yes
+  jump
+   scene: 基本機能
+
+exit

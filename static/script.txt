@@ -1,0 +1,315 @@
+game
+ width: 480
+ height: 480
+
+config
+ windowWidth: 464
+ windowHeight: 160
+ windowX: 8
+ windowY: 314
+ messageAutoHide: 0
+
+scene
+ id: 基本機能
+
+message
+ エンジンテスト。テステス。
+
+add
+ id: 10
+ file: chara1.png
+ effect: fade
+ x: 130
+ y: 40
+
+message
+ ？？？「こんにちは」
+
+message
+ ？？？「私はナビゲーターのなん子です。」
+
+message
+ なん子「背景が無いと寂しいですね。
+ では背景をつけてみましょう。」
+
+bg
+ file: hankagai.jpg
+ effect: fade
+
+message
+ なん子「背景の切り替えはbgコマンドで行います。
+ さっきのコマンドだと、こんな感じですね。」
+ bg
+  file: hankagai.jpg
+  effect: fade
+
+message
+ なん子「切り替えのエフェクトが早すぎるなら、こういう風にもかけますよ」
+ bg
+  file: ekimae.jpg
+  effect: fade
+  time: 2000
+
+bg
+ file: ekimae.jpg
+ effect: fade
+ time: 2000
+
+message
+ なん子「次はキャラクターを追加してみましょうか。」
+
+add
+ id: 11
+ file: chara2.png
+ effect: fade
+ x: 180
+ y: 40
+ time: 200
+
+message
+ ？？？「キャラ子でーす。キャラクターなんとか機で作られていまっす。」
+
+order
+ id: 10
+ value: 1
+
+message
+ なん子「キャラ子というかチャラ子的な感じですけども。」
+
+order
+ id: 11
+ value: 1
+ effect: fade
+ time: 200
+
+message
+ キャラ子「んだとー？
+ なんていいながら、orderコマンドでの並べ替えとaddコマンドでのキャラ追加をデモしたよ
+ 詳しくはソースを見てね」
+
+message
+ なん子「ということでキャラ子の役目は終わったので退場してもらいましょう。
+ キャラを消すにはremoveコマンドを使います。」
+
+remove
+ id: 11
+ effect: fade
+ time: 200
+
+message
+ なん子「いつもエフェクトがfadeだけでは物足りませんね。ちょっと他のエフェクトを使ってみましょう。」
+
+add
+ id: 12
+ file: chara3.png
+ effect: vstripe
+ x: 180
+ y: 40
+ time: 500
+
+message
+ なん子「標準では、vstripe、hstripe、dissolveが用意されています。」
+
+remove
+ id: 12
+ effect: hstripe
+ time: 500
+
+add
+ id: 12
+ file: chara3.png
+ effect: dissolve
+ x: 180
+ y: 40
+ time: 500
+
+message
+ なん子「次に自作エフェクトを使ってみましょう。
+ エフェクトを自作するには、最初にこういう画像を用意する必要があります。」
+
+add
+ id: 13
+ effect: fade
+ time: 200
+ file: uni1.png
+
+wait
+ time: 500
+
+remove
+ id: 13
+ effect: fade
+ time: 200
+
+message
+ なん子「これをキャラクターにかけると、、こんな感じですね」
+
+effect
+ id: uni1
+ image: uni1.png
+
+hide
+ id: 12
+ effect: uni1
+ time: 1000
+
+show
+ id: 12
+ effect: uni1
+ time: 1000
+
+message
+ なん子「もう一つデモします。次はこういう画像です。背景とキャラを切り替えてみます。」
+
+add
+ id: 14
+ effect: fade
+ time: 200
+ file: uni2.png
+
+wait
+ time: 500
+
+remove
+ id: 14
+ effect: fade
+ time: 200
+
+effect
+ id: uni2
+ image: uni2.png
+
+bg
+ file: house.jpg
+ effect: uni2
+ time: 1000
+
+hide
+ id: 12
+ effect: uni2
+ time: 1000
+
+show
+ id: 12
+ effect: uni2
+ time: 1000
+
+message
+ なん子「エフェクトはこのような大きな画像を使うタイプと、小さな画像をリピートするタイプがあります。
+ 次はこういう小さな画像を使ってみましょう。」
+
+add
+ id: 15
+ effect: fade
+ time: 200
+ file: uni3.png
+
+wait
+ time: 500
+
+remove
+ id: 15
+ effect: fade
+ time: 200
+
+effect
+ id: uni3
+ image: uni3.png
+ repeat: 1
+
+hide
+ id: 12
+ effect: uni3
+ time: 1000
+
+show
+ id: 12
+ effect: uni3
+ time: 1000
+
+message
+ なん子「色々使えるので、試してみてください。
+ fade以外のエフェクトは少し重いので、↑のfps数値に注意しながら使ってください。
+ 特に背景のような大きい画像は重くなる可能性があります。作りたいゲームの動作環境を考えながら活用してください。」
+
+message
+ なん子「さて、さっきからエフェクトかけられてばかりで、何もしゃべってないこの子にも自己紹介してもらいましょう。」
+
+message
+ ？？？「ども、ども。とか子です。位置がなん子とかぶっちゃってるので移動するよ。」
+
+move
+ id: 12
+ x: 300
+ y: 40
+ time: 200
+
+scale
+ id: 12
+ scale: 0.6
+ time: 200
+
+message
+ とか子「moveコマンドで右によけて、scaleコマンドで奥に引っ込んだよ。この二つは同時に使えないので注意してくださいな。」
+
+evalAsync
+ var self = this;
+ this.manager.get("10").tl().moveBy(-40, 0, 500).and().scaleTo(2, 500).scaleTo(1, 500).and().moveBy(-40, 0, 500).then(function() {
+  self.finished.fire();
+ });
+
+message
+ なん子「同時に使うにはevalAsyncという特殊なコマンドを使うと出来たりもするのですが、evalとevalAsyncの二コマンドについては、複雑になりすぎるため省略します。
+ 慣れてきたら調べてみてください。」
+
+message
+ なん子「次はimageコマンドでとか子さんの表情を変えてみましょう。」
+
+scale
+ id: 12
+ scale: 1
+ time: 200
+
+image
+ id: 12
+ file: chara3-angry.png
+ effect: fade
+ time: 500
+
+image
+ id: 12
+ file: chara3-smile.png
+ effect: dissolve
+ time: 500
+
+image
+ id: 12
+ file: chara2.png
+ effect: dissolve
+ time: 500
+
+image
+ id: 12
+ file: chara3-angry.png
+ effect: fade
+ time: 500
+
+image
+ id: 12
+ file: chara3.png
+ effect: dissolve
+ time: 500
+
+message
+ とか子「一瞬チャラ子になっちゃったけど、こんな感じで画像を切り替える事が出来るのだ。」
+
+message
+ なん子「基本的な操作はそんな感じですね。」
+
+message
+ とか子「ここから難しいんだよねぇ。制御構造ってのが出てくるんだ。
+ あたしは制御構造大好きだけどね。」
+
+message
+ なん子「一度シーンを切り替えましょう。」
+

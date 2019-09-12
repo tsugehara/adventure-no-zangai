@@ -1,0 +1,12 @@
+../../jgengine/js/jgengine.d.ts
+../../jgame.js/lib/jgame.d.ts
+../../jgui/js/ui.jgame.d.ts
+../js/adventure.jgame.d.ts
+jquery.d.ts
+../../../jgforce/js/jgforce.d.ts
+PropertyEditor.ts
+AdventureScript.ts
+AdventureEditor.ts
+AdventurePlayer.ts
+--out ../js/adventure-jgforce.jgame.js
+--declaration

@@ -1,0 +1,176 @@
+scene
+ id: シーン
+ effect: universal
+ image: uni3.png
+ repeat: 1
+ time: 1000
+ init
+  bg
+   file: hankagai.jpg
+  add
+   id: 10
+   file: chara1.png
+   x: 130
+   y: 40
+
+message
+ なん子「ところで、シーンのエフェクトは少し他のと違います。
+ effectに指定できる値は以下の通りです。」
+ mosaic、blur、slide、fade、wipe、wipeFade、boxOut、boxIn、arcOut、arcIn、universal、universalTwin、universalDelay
+
+message
+ なん子「slide、wipe、wipeFadeではangleというパラメータで、left、right、up、downを指定出来ます。
+ boxOut、boxInではrotateで回転度数を指定出来ます。
+ boxOut、boxIn、arcOut、arcIn、fade、universalDelayでは、colorで色を指定出来ます。
+ universalでは、imageで画像名、repeatで繰り返し感覚を指定出来ます。
+ すべてのエフェクトで、timeによって時間を指定出来ます。」
+
+message
+ なん子「たくさん話しましたが、軽くデモしてみましょう。」
+
+scene
+ id: シーン1
+ effect: slide
+ angle: right
+ time: 800
+ init
+  bg
+   file: house.jpg
+  add
+   id: 10
+   file: chara1.png
+   x: 0
+   y: 0
+
+scene
+ id: シーン2
+ effect: wipe
+ angle: left
+ time: 800
+ init
+  bg
+   file: ekimae.jpg
+  add
+   id: 10
+   file: chara2.png
+   x: 200
+   y: 200
+
+scene
+ id: シーン3
+ effect: boxOut
+ color: #000000
+ time: 800
+ init
+  bg
+   file: house.jpg
+  add
+   id: 10
+   file: chara1.png
+   x: 0
+   y: 0
+
+scene
+ id: シーン4
+ effect: wipeFade
+ angle: up
+ time: 800
+ init
+  bg
+   file: ekimae.jpg
+  add
+   id: 10
+   file: chara2.png
+   x: 200
+   y: 200
+
+scene
+ id: シーン5
+ effect: boxIn
+ time: 800
+ rotate: 45
+ init
+  bg
+   file: house.jpg
+  add
+   id: 10
+   file: chara1.png
+   x: 0
+   y: 0
+
+scene
+ id: シーン6
+ effect: arcIn
+ angle: left
+ time: 800
+ init
+  bg
+   file: ekimae.jpg
+  add
+   id: 10
+   file: chara2.png
+   x: 200
+   y: 200
+
+scene
+ id: シーン7
+ effect: fade
+ color: #ffffff
+ time: 800
+ init
+  bg
+   file: house.jpg
+  add
+   id: 10
+   file: chara1.png
+   x: 0
+   y: 0
+
+scene
+ id: シーン8
+ effect: universalTwin
+ image: uni1.png
+ time: 800
+ init
+  bg
+   file: ekimae.jpg
+  add
+   id: 10
+   file: chara2.png
+   x: 200
+   y: 200
+
+scene
+ id: シーン9
+ effect: universalDelay
+ image: uni2.png
+ color: #000000
+ time: 800
+ init
+  bg
+   file: house.jpg
+  add
+   id: 10
+   file: chara1.png
+   x: 0
+   y: 0
+
+scene
+ id: シーン終わり
+ effect: mosaic
+ time: 1000
+ init
+  bg
+   file: hankagai.jpg
+  add
+   id: 10
+   file: chara1.png
+   x: 130
+   y: 40
+
+message
+ なん子「とまあ色々とシーン切り替え独特の処理が出来ます。
+ 細かいところは試してください。
+ それよりもそろそろ制御構造行きましょう。
+ とか子ちゃんにも手伝ってもらいます。」
+

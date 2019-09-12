@@ -1,0 +1,271 @@
+scene
+ id: 制御構造
+ effect: universal
+ image: !dissolve
+ repeat: 1
+ time: 1000
+ init
+  bg
+   file: hankagai.jpg
+  add
+   id: 10
+   file: chara1.png
+   x: 80
+   y: 40
+  add
+   id: 12
+   file: chara3.png
+   x: 220
+   y: 40
+
+message
+ とか子「やぁやぁ。」
+
+message
+ とか子「最初は変数から行ってみよう。
+ 変数っていうのは、まあ値を入れておく箱のことですな。
+ たとえば。」
+
+message
+ あなたは銅の剣を手に入れた。
+
+var
+ 銅の剣: 10
+
+message
+ とか子「というのがあったとして、この「銅の剣を持っている状態」を保存しておくものが変数だね。
+ 今、実際に内部的には銅の剣を持っているという状態になっている。この剣は10回使うと壊れるので、10という値を設定してみた。」
+
+message
+ とか子「10回使うと壊れる、という状態にするためには、最初に10をセットして、その後使うたびに一つずつ消すことになるね。
+ 減算するには、こういう風に書くんだ。」
+ var
+  銅の剣: $銅の剣-1
+
+message
+ とか子「銅の剣: -1だと、銅の剣の残り回数が-1回になってすぐ壊れてしまうから注意してね。」
+
+message
+ とか子「さて、次はlabelとjumpとifだ。
+ その銅の剣を使ってあたしと戦ってみようかね。」
+
+message
+ とか子が現れた。
+
+var
+ とか子の体力: 100
+
+label
+ id: battle
+
+var
+ 銅の剣: $銅の剣-1
+ ダメージ: this.manager.game.random(1, 70)
+ とか子の体力: $とか子の体力-$ダメージ
+
+move
+ id: 12
+ x: 240
+ y: 40
+ time: 50
+
+move
+ id: 12
+ x: 200
+ y: 40
+ time: 100
+
+move
+ id: 12
+ x: 220
+ y: 40
+ time: 50
+
+wait
+ time: 50
+
+message
+ あなたの攻撃！
+ とか子に{$ダメージ}のダメージを与えた。
+
+if
+ exp: $銅の剣<1
+ yes
+  jump
+   label: gameover
+
+if
+ exp: $とか子の体力>0
+ no
+  jump
+   label: win
+
+message
+ とか子はにやにやしている。
+
+jump
+ label: battle
+
+label
+ id: win
+
+message
+ とか子をやっつけた。
+
+image
+ id: 12
+ file: chara3-angry.png
+ effect: fade
+ time: 500
+
+message
+ とか子「ぐわぁー。」
+
+image
+ id: 12
+ file: chara3.png
+ effect: fade
+ time: 500
+
+message
+ とか子「私の体力は100。銅の剣を使い切る前に倒せば勝ちっていうのが、さっき行った処理だね。
+ labelとjumpとifを使って、繰り返し処理をしているよ。
+ ちなみに銅の剣を使い切ったらゲームオーバーで、その処理も書いてあるから参考にしてくださいな。」
+
+message
+ なん子「制御構造は少しプログラム的な要素が入ってくるので、慣れない内は難しいかもしれませんが、使いこなせれば動的なゲームを作る事が出来ます。
+ がんばってください。」
+
+message
+ とか子「と、なん子が締めてくれたけど、まだ終わりじゃないんだなこれが。
+ 次はcallとreturn。プログラム経験者なら、これがgosubとか関数とかいうものに相当するものだというのはぴんと来るかもねぇ。」
+
+message
+ とか子「callはjumpと同じく、指定した場所にジャンプする。returnは直前にcallした場所に戻る、というもの。
+ call(1)->call(2)->call(3)と、callを3回呼び出した場合、最初にreturnするとcall(3)の場所に戻るんだ。」
+
+message
+ とか子「jumpとcallの違いは、jumpは呼び出した場所を記録しないんだよね。
+ だから、call->jump->returnってすると、callの場所まで戻る。」
+
+message
+ とか子「まあ、やってみようか。
+ 銅の剣の回数を1回回復させるという処理を別の場所に書いて、回復させたら元の場所に戻ってくるよ。」
+
+message
+ 銅の剣はあと{$銅の剣}回使えます。
+
+call
+ label: repair
+
+message
+ 銅の剣はあと{$銅の剣}回使えます。
+
+message
+ とか子「どう？増えた？もう一回やってみよう。」
+
+call
+ label: repair
+
+message
+ 銅の剣はあと{$銅の剣}回使えます。
+
+message
+ とか子「どうかな。元の場所に戻ってこれるから、どこから呼び出してもいいんだ。
+ なんか別の場所に処理を書いて、それをいろんなところから使いまわす場合に便利だよ。」
+
+message
+ とか子「慣れない内はreturnの書き忘れが多いと思うので、callした先に必ずreturnを書くように気をつけること。
+ ま、制御構造は大体そんなところかな。」
+
+message
+ なん子「とか子さんの説明が大雑把ですので、少し補足します。
+ 長いので、Ctrlキーで早送りしていただいてもいいですよ。」
+
+message
+ なん子「まず、jumpとcallで指定出来る場所は3つです。
+ label: repairと書くとidがrepairのラベルまで飛びます。
+ scene: repairと書くとidがrepairのシーンに飛びます。
+ command: 10とすると、10個目のコマンドまで飛びます。
+ 通常はlabelとsceneを使うのがいいでしょう。」
+
+message
+ なん子「varやifのexpパラメータは、内部的にjavascriptを直接実行する形になっています。」
+
+message
+ なん子「先ほどとか子さんが説明した簡単な使い方以外に、こういう内容も書けます。これは実際にとか子さんに与えるダメージを計算するのに先ほど使っています。」
+ var
+  ダメージ: Math.floor(Math.random() * 100)
+
+message
+ なん子「また、var命令では複数の変数を同時に処理できます。
+ でも、"同じ名前の変数への処理は一度のvar命令で一度だけ"なので注意してください。」
+
+message
+ なん子「例えば、これは正しく実行されます。」
+ var
+  銅の剣: $銅の剣-1
+  ダメージ: Math.floor(Math.random() * 100)
+  とか子の体力: $とか子の体力-$ダメージ
+
+message
+ なん子「これは駄目です。」
+ var
+  銅の剣: $銅の剣-1
+  ダメージ: Math.floor(Math.random() * 100)
+  銅の剣: $銅の剣-$ダメージ
+
+message
+ なん子「このようなケースでは、var命令を二つ使う必要があります。」
+ var
+  銅の剣: $銅の剣-1
+  ダメージ: Math.floor(Math.random() * 100)
+  
+ var
+  銅の剣: $銅の剣-$ダメージ
+
+message
+ なん子「私からの補足事項は以上です。」
+
+image
+ id: 12
+ file: chara3-smile.png
+ effect: dissolve
+ time: 500
+
+message
+ とか子「なん子が説明すると途端に難しそうになるよね。
+ やれやれ。」
+
+image
+ id: 12
+ file: chara3.png
+ effect: dissolve
+ time: 500
+
+message
+ なん子「（無視）
+ さて、この紹介ももう一息です。
+ 最後はユーザ入力処理行ってみましょう。」
+
+jump
+ scene: ユーザ入力
+
+label
+ id: repair
+
+var
+ 銅の剣: $銅の剣+1
+
+return
+
+label
+ id: gameover
+
+message
+ あなたは死んだ。
+
+message
+ THE END
+
+exit

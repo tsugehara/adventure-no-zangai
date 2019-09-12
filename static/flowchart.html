@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>アドベンチャーゲームサンプル - jgforce</title>
+<script type="text/javascript" src="./lib/jgame.js/js/jgame.js"></script>
+<script type="text/javascript" src="./lib/jgui/js/ui.jgame.js"></script>
+<script type="text/javascript" src="./lib/jgengine/js/jgengine.js"></script>
+<script type="text/javascript" src="js/adventure.jgame.js"></script>
+<script type="text/javascript" src="js/protovis.js"></script>
+<script type="text/javascript" src="js/CustomForce.js"></script>
+<script type="text/javascript" src="js/visualizer.js"></script>
+<script type="text/javascript">
+jg.globalize();
+window.onload = function() {
+	var loader = new adventure.ScriptLoader();
+	loader.load("script.txt", "script2.txt", "script3.txt", "script4.txt");
+	loader.loaded.handle(function() {
+		var manager = new adventure.Manager(loader.scripts);
+		var flowchart = new adventure.Flowchart(manager);
+		flowchart.generate();
+		var container = document.getElementById("list");
+		for (var i=0; i<manager.commands.length; i++) {
+			var cmd = manager.commands[i];
+			var opt = document.createElement("option");
+			var s = i+": "+cmd.name;
+			opt.innerHTML = s;
+			opt.index = i;
+			container.appendChild(opt);
+		}
+
+		//normalFlow(flowchart, manager);
+		var visualizer = new FlowVisualizer(flowchart, 800, 800, "chart-container");
+		visualizer.init();
+		visualizer.create();
+		visualizer.render();
+		visualizer.layout();
+		container.onchange = function() {
+			var index;
+			for (var i=0; i<container.childNodes.length; i++) {
+				var n = container.childNodes[i];
+				if (n.selected && n.tagName == "OPTION") {
+					index = n.index;
+					break;
+				}
+			}
+			if (index === undefined)
+				return;
+			var node = flowchart.nodes[index];
+			var route = flowchart.getRoute(index);
+			visualizer.deactiveAll();
+			visualizer.active(route, true);
+			console.log(route.length);
+		}
+	});
+}
+</script>
+</head>
+<body>
+	<div style="position:absolute; width:200px;">
+		<select id="list" size="30" style="width:100%"></select>
+	</div>
+	<div style="width:100%; margin-left:210px" id="chart-container">
+	</div>
+</body>
+</html>

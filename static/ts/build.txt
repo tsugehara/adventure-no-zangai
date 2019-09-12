@@ -1,0 +1,20 @@
+../../jgengine/js/jgengine.d.ts
+../../jgame.js/lib/jgame.d.ts
+../../jgui/js/ui.jgame.d.ts
+BasicScene.ts
+Command.ts
+commands.ts
+Compiler.ts
+EffectCommand.ts
+Flowchart.ts
+IfCommand.ts
+InputWaitCommand.ts
+Manager.ts
+MessageCommand.ts
+PreviewGame.ts
+property.ts
+SceneCommand.ts
+ScriptLoader.ts
+Util.ts
+--out ../js/adventure.jgame.js
+--declaration

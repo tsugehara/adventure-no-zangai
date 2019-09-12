@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>アドベンチャーゲームサンプル - jgforce</title>
+<script type="text/javascript" src="./lib/jgame.js/js/jgame.js"></script>
+<script type="text/javascript" src="./lib/jgui/js/ui.jgame.js"></script>
+<script type="text/javascript" src="./lib/jgengine/js/jgengine.js"></script>
+<script type="text/javascript" src="js/adventure.jgame.js"></script>
+<script type="text/javascript">
+jg.globalize();
+window.onload = function() {
+	var loader = new adventure.ScriptLoader();
+	loader.load("script.txt", "script2.txt", "script3.txt", "script4.txt");
+	//loader.load("script2.txt");
+	loader.loaded.handle(function() {
+		var manager = new adventure.Manager(loader.scripts);
+		manager.start();
+		manager.game.enablePointHandler();
+		manager.game.enableKeyboardHandler();
+	});
+}
+</script>
+</head>
+<body>
+	<div id="fps_show">&nbsp;</div>
+</body>
+</html>
